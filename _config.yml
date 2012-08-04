@@ -5,7 +5,7 @@
 url: http://blog.fungibleclouds.com
 title: Fungible Clouds
 subtitle: Break the cloud services vendor lock-in
-author: Nilesh Londhe
+author: Nilesh
 simple_search: http://google.com/search
 description:
 
@@ -33,7 +33,7 @@ destination: public
 plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
-markdown: rdiscount
+markdown: maruku
 pygments: false # default python pygments have been replaced by pygments.rb
 
 paginate: 10          # Posts per page on the blog index
