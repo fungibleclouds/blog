@@ -88,7 +88,7 @@ Install `numpy`
 
 Install `gfortran` from ATT
 	 
-Download and install gfortran from [ATT Research](http://r.research.att.com/tools/). I haven't verified yet if this step is truly necessary. Moreover, I think it would be better to install `gfortran` via `homebrew`.
+	brew install gfortran
 
 Install `scipy` from [source](https://github.com/scipy/scipy) as `pip install scipy` seems to fail
 
