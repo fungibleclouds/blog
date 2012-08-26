@@ -1,0 +1,23 @@
+-e git+https://github.com/sympy/sympy.git#egg=sympy-dev
+Cython==0.16
+distribute==0.6.28
+epydoc==3.0.1
+ipython==0.13
+lxml==2.3.5
+pandas==0.8.1
+patsy==0.1.0
+python-dateutil==1.5
+pytz==2012d
+pyzmq==2.2.0.1
+tornado==2.3
+wsgiref==0.1.2
+Jinja2==2.6
+Pygments==1.5
+Sphinx==1.1.3
+docutils==0.9.1
+readline==6.2.2
+scikits.statsmodels==0.3.1
+six==1.1.0
+xlrd==0.8.0
+-e git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib-dev
+-e git+https://github.com/scipy/scipy.git#egg=scipy-dev
