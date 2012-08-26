@@ -67,14 +67,9 @@ Configure the qstk specific `env` variables
 	
 Test the `env` variables
 
-	echo $QS # shows ~/domains/quant/QSTK
-	echo $QSDATA # shows ~/domains/quant/QSTK/QSData
-	
-Install `readline` and `ipython` (both are optional)
-
-	pip install readline
-	pip install ipython
-	
+	echo $QS # would show ~/domains/quant/QSTK
+	echo $QSDATA # would show ~/domains/quant/QSTK/QSData
+		
 ####Now you are ready to run the QSTK examples 
 
 	cd $QS/Examples/DataAccess/
