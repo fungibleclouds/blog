@@ -72,8 +72,21 @@ Test the `env` variables
 		
 ####Now you are ready to run the QSTK examples 
 
-	cd $QS/Examples/DataAccess/
-	python setupexample.py
+	ipython notebook --pylab inline # This will open your default browser http://localhost:8888
+	
+Click on new notebook to create a new tab with new empty notebook. In that new notebook, type this code segment to test your setup
+
+	import numpy as np
+	import pandas as pand
+	import matplotlib.pyplot as plt
+	from pylab import *
+	x = np.random.randn(1000)
+	plt.hist(x,100)
+	plt.savefig('test.png',format='png')
+
+Press SHIFT-ENTER to see something like this below.
+
+{% img https://dl.dropbox.com/u/2093887/blog/pictures/randomplot.png %}	
 
 The class is not started yet but here are the two recommended readings that I ordered already.
 
