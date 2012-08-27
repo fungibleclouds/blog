@@ -28,11 +28,11 @@ Install `numpy` from [source](https://github.com/numpy/numpy)
 	
 	pip install -e git+https://github.com/numpy/numpy.git#egg=numpy-dev
 
-Install other dependencies via a requirements.txt file *created by `pip freeze > requirements.txt` from a working installation.*
-
-	pip install -r requirements.txt
-		
+Install other dependencies via a requirements.txt file *created by `pip freeze > requirements.txt` from a working installation.*	
 {% include_code PIP Requirements File lang:js requirements.txt %}
+
+	wget http://blog.fungibleclouds.com/downloads/code/requirements.txt
+	pip install -r requirements.txt
 
 Install `statsmodels` from [source](https://github.com/statsmodels/statsmodels)
 	
