@@ -28,7 +28,7 @@ Install `numpy` from [source](https://github.com/numpy/numpy)
 	
 	pip install -e git+https://github.com/numpy/numpy.git#egg=numpy-dev
 
-Install other dependencies via a requirements.txt file *created by `pip freeze > requirments.txt` from a working installation.*
+Install other dependencies via a requirements.txt file *created by `pip freeze > requirements.txt` from a working installation.*
 
 	pip install -r requirements.txt
 		
