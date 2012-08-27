@@ -9,12 +9,13 @@ I just discovered an online course on Computational Investing that [Prof. Tucker
 
 ####Getting the basics down
 
-Install `homebrew`, `wget`, `pyqt`, and `gfortran`
-
 	ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go)
 	brew install wget
 	brew install pyqt # brew installed sip as sip is a dependency
 	brew install gfortran
+	brew install gtk
+	brew install ghostscript
+	brew install swig
 	
  Use a virtual environment for use with QSTK *(so it wont mess up existing setup)* See my [other post](/blog/2012/08/17/python-virtualenv/) on setting up a virtualenv  and create a quant virtualenv
 
@@ -27,16 +28,19 @@ Install `numpy` from [source](https://github.com/numpy/numpy)
 	
 	pip install -e git+https://github.com/numpy/numpy.git#egg=numpy-dev
 
-Install other dependencies via a requirements.txt file
+Install other dependencies via a requirements.txt file *created by `pip freeze > requirments.txt` from a working installation.*
 
 	pip install -r requirements.txt
+		
+{% include_code PIP Requirements File lang:js requirements.txt %}
 
-Download this file and make sure to rename it as requirements.txt
-{% include_code requirements.txt.applescript %}
+Install `statsmodels` from [source](https://github.com/statsmodels/statsmodels)
+	
+	pip install -e git+https://github.com/statsmodels/statsmodels.git#egg=statsmodels-dev
 	
 Install `CVXopt` from [source](http://abel.ee.ucla.edu/cvxopt/index.html) 
 
-`pip install cvxopt` should work but seems there is a [bug](http://sourceforge.net/tracker/?func=detail&aid=3561044&group_id=66150&atid=513503) with `cvxopt`. 
+`pip install cvxopt` should work but seems there is a [bug](http://sourceforge.net/tracker/?func=detail&aid=3561044&group_id=66150&atid=513503) with `cvxopt.` 
 	
 	cd ~/domains/quant/src
 	wget http://abel.ee.ucla.edu/src/cvxopt-1.1.5.tar.gz
