@@ -14,7 +14,7 @@ Here is a recent example illustrating the lock-in problem:
 
 Few weeks ago, Google announced a significant [price increase](http://code.google.com/appengine/kb/postpreviewpricing.html) for use of its Google App Engine Platform-as-a-Service (PaaS). Google App Engine users knew and expected that Google would increase the price at some point but what shocked most developers was the jump in price which increased the cost of using the Google App Engine runtime environment by 100% or more in specific cases. It is a non trivial exercise to port to another location once an app is deployed on the Google App Engine infrastructure.
 {% pullquote %}
-This led to a big backlash on the App Engine google groups. Google responded with a few adjustments to its pricing but this incidence resurfaced some doubts about the cloud. Hart Singh of flipbook LLC (creators of the [flipbook app](http://apps.facebook.com/flipbookapp/) on Facebook) raised a concern, "{"My team spent so much time learning app engine but I continue to wonder if we are betting our company on Google...any app we build can only be run on the Google App Engine."}"
+This led to a big backlash on the App Engine google groups. Google responded with a few adjustments to its pricing but this incidence resurfaced some doubts about the cloud. Hart Singh of flipbook LLC, creators of the flipbook app on Facebook, raised a concern, "{"My team spent so much time learning app engine but I continue to wonder if we are betting our company on Google...any app we build can only be run on the Google App Engine."}"
 Google App Engine requires custom code to run apps in that environment. Customizing take effort and time and impacts the bottomline. 
 {% endpullquote %}
 
