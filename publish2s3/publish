@@ -1,0 +1,1 @@
+~/Dropbox/scripts/s3cmd/s3cmd sync --recursive --exclude "*.tiff"  --exclude "*.plist" --delete-removed ~/projects/blog/public/* s3://blog.fungibleclouds.com/ --verbose
