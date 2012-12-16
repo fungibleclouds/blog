@@ -8,18 +8,20 @@ categories:
 ---
 [Chef](http://github.com/opscode/chef) is a popular [Apache licensed](http://www.apache.org/licenses) open source configuration management and automation tool for the cloud. It drives three core ideas in the cloud computing industry.
 
-# Fungibility: 
+# Fungibility
 Chef routinizes the repeatable steps in cloud operations management and it does that in a way that is almost agnostic to the underlying cloud provider. Chef thus helps make applications almost agnostic to the underlying machines.
-
-**_Routinizing the repeatable_** is key to successful operations management and is described in detail in a paper on [Integrated Operations](http://deepblue.lib.umich.edu/bitstream/2027.42/71915/1/j.1937-5956.1998.tb00443.x.pdf) by [Prof. William Lovejoy](http://www.bus.umich.edu/facultybios/facultybio.asp?id=000233395) of [The University of Michigan Business School, Ann Arbor](http://www.bus.umich.edu) and I quote...
-
-_"{% pullquote %} {"If some task is to be repeated many times, it makes sense to find out the best way to perform the task and then require its execution according to that best practice."} This means that in stable task environments, stable work routines and policies will be generated over time, and this is efficient. This derives from March and Simon’s (1958) model of organizational learning. The consequences for this are that one will want to consider the relationship between efficiency and discretion allowed workers in a stable environment. {% endpullquote %}"_ 
 
 Using Chef to manage cloud applications makes cloud computer from a provider, say [AWS EC2](http://aws.amazon.com/ec2), fairly easily substituted by cloud computers from another provider, say [HP Cloud](https://www.hpcloud.com/products/cloud-compute).
 
 As my friend [Kevin Jackson](https://twitter.com/GovCloud) describes, Cloud computing has several [economic benefits](http://www.forbes.com/sites/kevinjackson/2011/09/17/the-economic-benefit-of-cloud-computing), however, cloud computing would become even more economical if cloud computers were [fungibile](http://en.wikipedia.org/wiki/Fungibility), meaning, a cloud machine from provider X would be practically no different than another cloud machine from provider Y. Fungibility would make cloud computers easily substitutable driving the price further down by increasing the competition and reducing the differention between providers of cloud computers. Fungibility, by the way, is not a property of [eukaryotic organisms](http://en.wikipedia.org/wiki/Fungus).
 
-# Idempotence:
+*_Routinizing the repeatable_* is key to successful operations management and is described in detail in a paper on [Integrated Operations](http://deepblue.lib.umich.edu/bitstream/2027.42/71915/1/j.1937-5956.1998.tb00443.x.pdf) by [Prof. William Lovejoy](http://www.bus.umich.edu/facultybios/facultybio.asp?id=000233395) of [The University of Michigan Business School, Ann Arbor](http://www.bus.umich.edu) and I quote...
+
+_"{% pullquote %} {"If some task is to be repeated many times, it makes sense to find out the best way to perform the task and then require its execution according to that best practice."} This means that in stable task environments, stable work routines and policies will be generated over time, and this is efficient. This derives from March and Simon’s (1958) model of organizational learning. The consequences for this are that one will want to consider the relationship between efficiency and discretion allowed workers in a stable environment. {% endpullquote %}"_ 
+
+The ability to *routinize the repeatable* and provide consistent environments from development, through testing and staging, to production is a key benefit to successful business operations in the cloud.
+
+# Idempotence
 
 Chef operation (`sudo chef-client`) is **idempotent**, repeat runs will produce the exact same resulting machine configuration as the initial run did. [Idempotence](http://en.wikipedia.org/wiki/Idempotence) is the property of certain operations in mathematics and computer science, that they can be applied multiple times without changing the result beyond the initial application. The term was introduced by [Benjamin Peirce](http://en.wikipedia.org/wiki/Benjamin_Peirce) in the context of elements of an algebra that remain invariant when raised to a positive integer power, and literally means _the quality of having_ the same power, from idem + potence (same + power). 
 
@@ -37,7 +39,7 @@ I must caution you that this is a fairly elaborate setup that would be needed on
 
 <!--more-->
 
-#### Tools we will use
+## Tools we will use
 
 * A macintosh used as your workstation
 * [Homebrew](http://mxcl.github.com/homebrew/)
@@ -47,7 +49,9 @@ I must caution you that this is a fairly elaborate setup that would be needed on
 * Access to a [Chef server](https://github.com/opscode-cookbooks/chef-server) that you may run on your own - or you can use the [hosted service](http://www.opscode.com/hosted-chef/) Opscode provides free for up to 5 nodes.
 * Accounts with at least two cloud compute providers. I will illustrate the concept working across [Amazon Web Services EC2](http://aws.amazon.com//ec2) and [HP Cloud Compute](https://www.hpcloud.com/products/cloud-compute) cloud but you are free to experiment with other cloud providers which should also work using similar concepts.
 
-#### Setup homebrew, git, chef, librarian, vagrant, ec2, hpcloud
+### Setup the basics
+
+homebrew, git, chef, librarian, vagrant, ec2, hpcloud
 
 	ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
 	brew install git
@@ -58,7 +62,7 @@ I must caution you that this is a fairly elaborate setup that would be needed on
 	gem install knife-ec2
 	gem install knife-hp
 	
-#### Setup your workstation to connect with your Chef server
+### Connect to your Chef server
 Follow the [Chef Fast Start Guide](http://wiki.opscode.com/display/chef/Fast+Start+Guide) to set up your workstation. You need to go through about half that guide up to step 4. Stop there as you don't need to configure the workstation as a client. In our case, the chef clients will run on vagrant, ec2, hpcloud and other cloud providers you select instead of on your workstation.
 
 If you follow that guide, it will create a `~/chef-repo/.chef/` folder with three files - `knife.rb`, `validation.pem` and `username.pem`. You need to move that `.chef` folder and those three files and to `~/.chef/` which lets you execute `knife` commands from anywhere on the workstation. 
@@ -73,13 +77,13 @@ My `knife.rb` looks something like this. Please note that I am using my own chef
 * line 7 - your organizational `pem` file
 * line 8 - `url:port` for your chef server
 
-#### Create a new folder to work on
+### Create a working directory
 
     mkdir -p ~/fungibility
 	cd ~/fungibility
 	git init
 	
-#### Gather community cookbooks
+### Gather community cookbooks
 
 We will use `librarian` to gather the required cookbooks from the Chef community. Download this `Cheffile` to your `~/fungibility` folder. This `~/fungibility/Cheffile` will guide `librarian` what to bring down to the workstation.
 
@@ -94,7 +98,7 @@ You can customize this Cheffile depending on your infrastructure needs. Libraian
     git add .
 	git commit -m "initial commit"
 
-#### Create a place for your custom cookbooks
+### Manage your custom cookbooks
 
 Create a `site-cookbooks` sub-folder to store any custom cookbooks or customization to community cookbooks.
 
@@ -105,7 +109,7 @@ Create a `site-cookbooks` sub-folder to store any custom cookbooks or customizat
 	git add .
 	git commit -m "added a place for custom cookbooks"
 
-#### Upload cookbooks from your workstation to the Chef server
+### Send cookbooks to Chef server
 
     knife cookbook upload -a -o ./cookbooks	
     knife cookbook upload -a -o ./site-cookbooks
@@ -114,7 +118,7 @@ and here is a `BE CAREFUL: nuke all cookbooks` command just in case you need to 
 
     knife cookbook bulk delete -y '.*'
 
-#### Create Chef environments for development, test, and production
+### Create Chef environments
 
 Your development, test, and production environments may differ, for example, the development environment might include debugging tools, which may not be installed in production. Chef lets you define different environments and assign a node to a particular environment. Let's create a `dev`, a `stage` and a `prod` environment which we can customize and fine tune later. 
 
@@ -145,7 +149,7 @@ Upload the environments to the Chef server:
     knife environment from file environments/stage.rb
     knife environment from file environments/prod.rb
 
-#### Create Chef roles for webserver and database
+### Create roles for your machines
 
 Chef [roles](http://docs.opscode.com/essentials_roles.html) are a way to define certain patterns and processes that exist across nodes in a Chef organization as belonging to a single job function. It helps you define a group of recipes and attributes that should be applied to all nodes that perform a particular function. 
 
@@ -237,7 +241,7 @@ Update the roles in Chef Server
 	knife role from file roles/webserver.rb
 	knife role from file roles/db_master.rb
 
-####Set up a sysadmin user account
+### Set up a sysadmin
 
 You need a user account created with sysadmin privileges on every node. You accomplish that by defining a data bag for the users cookbook, with attributes describing your credentials. 
 
@@ -278,7 +282,7 @@ Upload the data bag to the Chef server:
 	knife data bag create users
 	knife data bag from file users users data_bags/users/$USER.json 
 
-#### Create an encrypted data bag for passwords and other secrets
+### Encrypt your secrets  
 
 Use an encrypted data bag to store secrets like passwords and encryption keys.
 
@@ -340,7 +344,7 @@ Modify the encrypted data bag if you need using the knife data bag edit command:
 
 but make sure to commit any secret changes back into git. Next chef run would apply the changes onto nodes. 
 
-#### Make mysql server recipe use the encrypted data bag
+### Make mysql::server recipe use the encrypted data bag
 
 The best practise is to keep customizations to community cookbooks in a separate `site-cookbooks` folder. However, I havn't figured out yet what is the best way to override  mysql community cookbook with this segment of code so resort to a hack and add the following to the top of cookbooks/mysql/recipes/server.rb:
 
@@ -361,7 +365,7 @@ upload the updated mysql cookbook to Chef server.
 
     knife cookbook upload mysql -o ./cookbooks
 
-#### Spin up a single instance on EC2
+### Spin up a single instance on EC2
 
 This command assumes that you have a key named `awsdefault` and the corresponding `awsdefault-east.pem` pemfile saved in `~/Downloads` folder, that the pemfile is marked read only for you `chmod 400 ~/Downloads/awsdefault-east.pem`, that you have a security group named `webserver` defined on EC2, that you have roles defined and upload onto Chef server, and that have environments also uploaded. The specified AMI ami-9c78c0f5 is the official 64-bit Ubuntu 12.04 EBS image in the us-east-1 region. If you want to use a different EC2 region, select a similar AMI in your desired region from the [ubuntu AMI list](http://cloud-images.ubuntu.com/locator/ec2/). Also, you musts specify the db_master role before the webserver role.
 
@@ -416,7 +420,7 @@ Another way without ssh directly is to use knife to do a remote chef run
 
 Idempotence would come into play here and make it the fastest way to make config amendments because Chef won’t re-install things that are already installed.
 
-#### Spin up a similar instance on HP Cloud
+### Create the same on the HPcloud
 
 This command assumes that you have a key named `hpdefault` and the corresponding `hpdefault.pem` pemfile saved in `~/Downloads` folder, that the pemfile is marked read only for you `chmod 400 ~/Downloads/hpdefault.pem`, that you have a security group named `webserver` defined on HP Cloud, that you have roles defined and upload onto Chef server, and that have environments also uploaded. The specified image 120 is the Ubuntu 12.04 EBS image in HP Cloud and 102 is the flavor (standard.medium) of machine used. `knife hp flavor list` will give all flavors of machines available in the HP cloud. Also, you musts specify the db_master role before the webserver role.
 
@@ -471,9 +475,9 @@ and globally check `uptime`, `restart apache` and also run a `sudo chef-client` 
 	# Check the free disk space on all nodes
 	knife ssh name:* 'df -h'
 	
-#### Delete the machines you just created
+### Destroy what you just created
 
-List them out using knife
+Unless you are planning to use the instances for something else, it is a good idea to destroy them so you wont get charged. Enumerate your instances using knife
 
 	➜  fungibility git:(master) knife hp server list 
 	Instance ID  Name              Public IP       Private IP  Flavor  Image  Key Pair   State 
@@ -499,7 +503,7 @@ Delete the server instances, node, and client using knife:
 
 While deleting, you will notice that there are some minor differences between HP and AWS EC2 in the way knife deletion works.
 
-####Provision the vagrant box
+### Provision a local vagrant box
 
 Now that you have the configuration working on two different cloud providers, lets configure vagrant in a similar fashion so we can use that as a development environment. Create a directory on your workstation for your vagrant VM that would be shared with the vagrantbox. This is where your dev work will reside in subdirectories within this folder.
 
