@@ -3,11 +3,12 @@ layout: post
 title: "Using Chef to deploy cloud applications"
 date: 2012-12-09 22:00
 comments: true
+toc: true
 categories: 
 ---
 [Chef](http://github.com/opscode/chef) is a popular [Apache licensed](http://www.apache.org/licenses) open source configuration management and automation tool for the cloud. It drives three core ideas in the cloud computing industry.
 
-### Fungibility: 
+# Fungibility: 
 Chef routinizes the repeatable steps in cloud operations management and it does that in a way that is almost agnostic to the underlying cloud provider. Chef thus helps make applications almost agnostic to the underlying machines.
 
 **_Routinizing the repeatable_** is key to successful operations management and is described in detail in a paper on [Integrated Operations](http://deepblue.lib.umich.edu/bitstream/2027.42/71915/1/j.1937-5956.1998.tb00443.x.pdf) by [Prof. William Lovejoy](http://www.bus.umich.edu/facultybios/facultybio.asp?id=000233395) of [The University of Michigan Business School, Ann Arbor](http://www.bus.umich.edu) and I quote...
@@ -18,21 +19,23 @@ Using Chef to manage cloud applications makes cloud computer from a provider, sa
 
 As my friend [Kevin Jackson](https://twitter.com/GovCloud) describes, Cloud computing has several [economic benefits](http://www.forbes.com/sites/kevinjackson/2011/09/17/the-economic-benefit-of-cloud-computing), however, cloud computing would become even more economical if cloud computers were [fungibile](http://en.wikipedia.org/wiki/Fungibility), meaning, a cloud machine from provider X would be practically no different than another cloud machine from provider Y. Fungibility would make cloud computers easily substitutable driving the price further down by increasing the competition and reducing the differention between providers of cloud computers. Fungibility, by the way, is not a property of [eukaryotic organisms](http://en.wikipedia.org/wiki/Fungus).
 
-### Idempotence:
+# Idempotence:
 
 Chef operation (`sudo chef-client`) is **idempotent**, repeat runs will produce the exact same resulting machine configuration as the initial run did. [Idempotence](http://en.wikipedia.org/wiki/Idempotence) is the property of certain operations in mathematics and computer science, that they can be applied multiple times without changing the result beyond the initial application. The term was introduced by [Benjamin Peirce](http://en.wikipedia.org/wiki/Benjamin_Peirce) in the context of elements of an algebra that remain invariant when raised to a positive integer power, and literally means _the quality of having_ the same power, from idem + potence (same + power). 
 
 Idempotent operations enables consistently reproducible cloud environments for development and production use. It helps bring order and reduce chaos in business operations. 
 
-### Embryos and DNA Injections
+# Embryos and DNA Injections
 Ok, I admit, this is going to be an incorrect analogy from biological science perspective but it does seem to work for some people as an crude example to explain the logic. What you get to accomplish is to give life to, say a giraffe (*Giraffa camelopardalis*), a cow (*Bos primigenius*), a leopard (*Panthera pardus*), or a person (*Homo sapiens*), based on the DNA you inject into an embryo. On similar lines, you create a web server running [nginx](http://nginx.org) with a specific configuration, or a proxy running [HAProxy](http://haproxy.1wt.eu), or a database master server running [PostgreSQL](http://www.postgresql.org) or whatever you need, by asking Chef to run an appropriate set of cookbooks on top of a cloud machine running just enough OS or [jeOS](http://en.wikipedia.org/wiki/Just_enough_operating_system) *(pronounced as [juice](http://blogs.vmware.com/console/2007/07/get-juiced.html) or jüs) *.
 
 Chef helps spin up machines just the way you want with a specific set of software and specific configuration by building up from scratch right from bare metal machines loaded with just enough OS.
 
-### Putting these concepts to work
+# Putting these concepts to work
 Let's see in practise how these core concepts pan out in reality. This is best illustrated in form of a hands on exercise of creating an infrastructure in the cloud where we will have the production environment running first on a single server instance which is useful for rapid prototyping of apps while sharing a single machine among multiple applications to minimize cost. Once you’re comfortable with this basic all-in-one configuration, it’s relatively simple to scale it out, separating the various roles onto multiple machine instances.
 move 
 I must caution you that this is a fairly elaborate setup that would be needed on your linux/unix workstation but fortunately it’s all pretty straightforward, and there’s a lot of good documentation available on the internet.
+
+<!--more-->
 
 #### Tools we will use
 

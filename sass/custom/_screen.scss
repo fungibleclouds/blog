@@ -1,0 +1,103 @@
+// Screen-only styles.
+
+@import "fonts";
+
+.print {
+    display: none;
+}
+
+.caption {
+    font-style: italic;
+    font-size: 80% !important;
+    text-align: center;
+    @include centered(100%);
+}
+
+div.imgpopup {
+    border: 1px solid #cccccc;
+    @include rounded-border(10px);
+    @include centered(60%);
+    margin: 10px;
+    text-align: center;
+
+    .caption {
+        margin: 0 !important;
+    }
+}
+
+figure.code {
+    pre.line-numbers {
+        font-size: $code_font_size;
+    }
+
+    td.code {
+        pre {
+            code {
+                font-size: $code_font_size;
+            }
+        }
+    }
+}
+
+.update {
+
+    @include drop-shadow-right-bottom(3px, #999);
+    @include rounded-border(10px);
+
+    pre {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+#about-link {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+// -------------------------------------------------------------------------
+// Table of Contents Styling (using jQuery table of contents plugin)
+// -------------------------------------------------------------------------
+
+$toc-bg: #dfdfdf;
+
+$toc-incr: 5px;
+
+div#tocBlock {
+    @include drop-shadow-right-bottom(5px, #999);
+    @include rounded-border(10px);
+    float: right;
+    font-size: 12pt;
+    width: 300px;
+    padding-left: 20px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+
+    background: $toc-bg;
+    border: solid 1px #999999;
+    margin: 0 0 10px 15px;
+
+    .tocHeading {
+        font-weight: bold;
+        font-size: 125%;
+    }
+
+    #toc {
+        background: $toc-bg;
+        ul {
+            list-style: disc;
+            li {
+                margin-left: $toc-incr !important;
+                padding: 0 !important;
+            }
+        }
+    }
+}
+
+// -------------------------------------------------------------------------
+// End Table of Contents Styling
+// -------------------------------------------------------------------------
+

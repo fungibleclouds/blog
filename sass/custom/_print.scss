@@ -1,0 +1,155 @@
+// -*- Ruby Sass -*-
+//
+// Print style sheet
+
+@import "mixins";
+
+$serif: Georgia, Times, "Times New Roman", serif;
+
+body {
+    font-family: $serif;
+}
+
+.print {
+    display: auto;
+}
+
+.screen {
+    display: none;
+}
+
+.illustration {
+    @include centered(100%);
+}
+
+div.author{
+    width: 100%;
+    display: block;
+    text-align: left;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    span.author-name {
+    }
+
+    span.author-email {
+        font-style: italic;
+    }
+}
+
+nav {
+    display: none;
+}
+
+aside {
+    display: none;
+}
+
+figure.code {
+    color: black;
+    padding: 5px;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    padding: 0 !important;
+
+    // Opera only
+    page-break-inside: avoid;
+
+    td.gutter {
+        display: none;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+h1.entry-title {
+    border-top: 1px solid black !important;
+    margin-top: 1em;
+    padding-top: 1em;
+}
+
+h1.blog-title {
+    font-family: $serif;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+h2.blog-subtitle {
+    width: 100%;
+    text-align: right;
+    font-family: $serif;
+    font-style: italic;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.disqus-script {
+    display: none !important;
+}
+
+p.meta {
+    display: none !important;
+}
+
+div.sharing {
+    display: none !important;
+}
+
+#dsq-content {
+    display: none !important;
+}
+
+section {
+    // Disqus puts the "Comments" heading inside an <h1> nested inside a
+    // <section> element. Since there is no "class" or "id" attribute on
+    // either, we have to assume that this particular form of nesting only
+    // appears here.
+    h1 {
+        display: none !important;
+    }
+}
+
+// -------------------------------------------------------------------------
+// Table of Contents Styling (using jQuery table of contents plugin)
+// -------------------------------------------------------------------------
+
+$print-toc-incr: 1em;
+
+div#tocBlock {
+    font-size: 12pt;
+    padding-left: 20px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+
+    background: white !important;
+    border: solid 1px #999999;
+    margin: 0 0 10px 15px;
+
+    .tocHeading {
+        font-weight: bold;
+        font-size: 125%;
+    }
+
+    #toc {
+        background: white !important;
+        ul {
+            list-style: disc;
+        }
+
+        li {
+            margin-left: $print-toc-incr !important;
+            padding-left: -30px;
+        }
+    }
+}
+
+// -------------------------------------------------------------------------
+// End Table of Contents Styling
+// -------------------------------------------------------------------------
